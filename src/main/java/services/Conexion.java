@@ -1,15 +1,17 @@
 package services;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.List;
 
 public class Conexion {
-    public void conectar(String nombre) throws InterruptedException {
-        String sentence = nombre;
-        String modifiedSentence;
+    public void conectar(List<String> datosCliente) throws InterruptedException {
+        String datosClienteJson = new Gson().toJson(datosCliente);
 
         while (true) {
             BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
@@ -18,41 +20,20 @@ public class Conexion {
             while (clientSocket == null) {
                 try {
                     clientSocket = new Socket("localhost", 6789);
+                    System.out.println("Conectado al servidor"  );
                 } catch (IOException e) {
-//                    System.out.println("Fallo al conectar, reintentando...");
+                    System.out.println("Intentando conectar...");
                     Thread.sleep(1000);
                 }
             }
 
             try {
                 DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-                BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
-                outToServer.writeBytes(sentence + '\n');
-                modifiedSentence = inFromServer.readLine();
-//                System.out.println("DEL SERVIDOR: " + modifiedSentence);
+                outToServer.writeBytes(datosClienteJson + '\n');
                 Thread.sleep(1000);
             } catch (IOException e) {
                 System.out.println("Desconectado servidor");
             }
-        }
-    }
-
-    public void enviarDatos() throws IOException {
-        String sentence = "Hola";
-        String modifiedSentence;
-
-        while (true) {
-            BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-            Socket clientSocket = new Socket("localhost", 6789);
-
-            DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-            BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
-            outToServer.writeBytes(sentence + '\n');
-            modifiedSentence = inFromServer.readLine();
-            System.out.println("DEL SERVIDOR: " + modifiedSentence);
-
         }
     }
 }
