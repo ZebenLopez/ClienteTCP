@@ -6,9 +6,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.Cliente;
 import services.Conexion;
+import utils.CPU;
+import utils.Sistema;
+import utils.Usuario;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.net.ConnectException;
 import java.util.List;
 
 public class HelloApplication extends Application {
@@ -16,19 +19,39 @@ public class HelloApplication extends Application {
     @Override
     public void init() {
         new Thread(() -> {
-            Conexion conexion = new Conexion();
-            try {
-                // Crear un cliente con datos
-                Cliente cliente = new Cliente("Windows", "Cliente", "localhost", "Intel", "8GB", "1TB");
+            Cliente cliente = new Cliente("USBX");
+            while (true) { // Bucle infinito
+                Conexion conexion = null;
+                try {
+                    conexion = new Conexion();
+                    try {
+                        // Actualizar los datos del cliente
+                        cliente.actualizarDatos();
 
-                // Obtener los datos del cliente como una lista de cadenas
-                List<String> datosCliente = cliente.getCliente();
+                        // Obtener los datos del cliente como una lista de cadenas
+                        List<Object> datosCliente = cliente.getCliente();
 
-                // Intentar conectar y enviar los datos al servidor
-                conexion.conectar(datosCliente);
-            } catch (Exception e) {
-                // Imprimir el error si no se puede conectar al servidor
-                e.printStackTrace();
+                        // Intentar conectar y enviar los datos al servidor
+                        conexion.conectar(datosCliente);
+
+                        // Esperar un tiempo antes de la próxima actualización
+                        Thread.sleep(1000); // Esperar 5 segundos
+                    } catch (Exception e) {
+                        // Imprimir el error si no se puede conectar al servidor
+                        e.printStackTrace();
+                    }
+                } catch (ConnectException e) {
+                    System.out.println("No se pudo conectar al servidor.");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                System.out.println("Datos del cliente: " + cliente.getCliente());
             }
         }).start();
     }

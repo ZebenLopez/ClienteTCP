@@ -1,0 +1,7 @@
+<configuration>
+    <!-- ... otras configuraciones de registro ... -->
+    <!-- Oshi utiliza el registro de nivel de error para registrar los errores de la consulta de contador de rendimiento de Windows -->
+
+    <logger name="oshi.util.platform.windows.PerfCounterQuery" level="ERROR" />
+    <logger name="oshi.util.platform.windows.PerfCounterWildcardQuery" level="ERROR" />
+</configuration>

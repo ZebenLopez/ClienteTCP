@@ -2,38 +2,35 @@ package services;
 
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.List;
 
 public class Conexion {
-    public void conectar(List<String> datosCliente) throws InterruptedException {
-        String datosClienteJson = new Gson().toJson(datosCliente);
+    private Socket clientSocket;
+    private DataOutputStream outToServer;
 
-        while (true) {
-            BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-            Socket clientSocket = null;
+    public Conexion() throws IOException {
+        clientSocket = new Socket("localhost", 6789);
+        outToServer = new DataOutputStream(clientSocket.getOutputStream());
+    }
 
-            while (clientSocket == null) {
-                try {
-                    clientSocket = new Socket("localhost", 6789);
-                    System.out.println("Conectado al servidor"  );
-                } catch (IOException e) {
-                    System.out.println("Intentando conectar...");
-                    Thread.sleep(1000);
-                }
-            }
+    public void conectar(List<Object> datosCliente) {
+        try {
+            // Convertir la lista a JSON
+            Gson gson = new Gson();
+            String json = gson.toJson(datosCliente);
 
-            try {
-                DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-                outToServer.writeBytes(datosClienteJson + '\n');
-                Thread.sleep(1000);
-            } catch (IOException e) {
-                System.out.println("Desconectado servidor");
-            }
+            // Enviar el JSON al servidor
+            outToServer.writeBytes(json + "\n");
+            outToServer.flush();
+        } catch (SocketException e) {
+            System.out.println("La conexión fue cerrada por el servidor. Intentando reconectar...");
+            // Aquí puedes intentar reconectar o manejar el error de alguna otra manera
+        } catch (IOException e) {
+            System.out.println("Error al enviar los datos al servidor");
         }
     }
 }

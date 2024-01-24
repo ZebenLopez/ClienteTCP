@@ -1,85 +1,42 @@
 package models;
 
+import utils.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Cliente {
+    private String sistema;
+    private String usuario;
+    private String cpu;
+    private String ram;
+    private List<String> disco;
+    private String perifericos;
 
-    private String sistemaOperativo = "Windows";
-    private String nombre = "Lopez";
-    private String ip = "localhost";
-    private String cpu = "Intel";
-    private String ram = "8GB";
-    private String discoDuro = "1TB";
-
-    public Cliente(String sistemaOperativo, String nombre, String ip, String cpu, String ram, String discoDuro) {
-        this.sistemaOperativo = sistemaOperativo;
-        this.nombre = nombre;
-        this.ip = ip;
-        this.cpu = cpu;
-        this.ram = ram;
-        this.discoDuro = discoDuro;
+    public Cliente(String perifericos) {
+        this.sistema = Sistema.obtenerInfo();
+        this.usuario = Usuario.obtenerInfo();
+        this.disco = obtenerInfoDisco();
+        this.perifericos = perifericos;
+        actualizarDatos();
     }
 
-    public Cliente() {
-
+    private List<String> obtenerInfoDisco() {
+        List<InfoDiscoDuro> infoDiscoDuroList = DiscoDuro.obtenerInfo();
+        List<String> discoInfo = new ArrayList<>();
+        for (InfoDiscoDuro info : infoDiscoDuroList) {
+            discoInfo.add(info.toString());
+        }
+        return discoInfo;
     }
 
-    public String getSistemaOperativo() {
-        return sistemaOperativo;
+    public void actualizarDatos() {
+        this.cpu = CPU.obtenerInfo();
+        this.ram = Memoria.obtenerInfo();
     }
 
-    public void setSistemaOperativo(String sistemaOperativo) {
-        this.sistemaOperativo = sistemaOperativo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public String getCpu() {
-        return cpu;
-    }
-
-    public void setCpu(String cpu) {
-        this.cpu = cpu;
-    }
-
-    public String getRam() {
-        return ram;
-    }
-
-    public void setRam(String ram) {
-        this.ram = ram;
-    }
-
-    public String getDiscoDuro() {
-        return discoDuro;
-    }
-
-    public void setDiscoDuro(String discoDuro) {
-        this.discoDuro = discoDuro;
-    }
-
-    public List<String> getCliente() {
-        return List.of(
-                this.sistemaOperativo,
-                this.nombre,
-                this.ip,
-                this.cpu,
-                this.ram,
-                this.discoDuro
-        );
+    public List<Object> getCliente() {
+        return Arrays.asList(sistema, usuario, cpu, ram, disco, perifericos);
     }
 }
