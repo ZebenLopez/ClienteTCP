@@ -8,4 +8,6 @@ module org.example.clientetcpfx {
     opens org.example.clientetcpfx to javafx.fxml;
     opens models to com.google.gson;
     exports org.example.clientetcpfx;
+    exports controller;
+    opens controller to javafx.fxml;
 }

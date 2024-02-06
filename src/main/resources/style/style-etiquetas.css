@@ -1,0 +1,24 @@
+.boton {
+    -fx-background-image: url('../images/grafica.jpg');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-border: 1px solid; /* Remove border */
+    -fx-border-color: white; /* White border */
+    -fx-text-fill: white; /* White text */
+    -fx-text-align: center; /* Centered text */
+    -fx-text-decoration: none; /* Remove underline */
+    -fx-cursor: pointer;
+    -fx-border-radius: 3px; /* Rounded corners */
+    -fx-font-family: Consolas;
+}
+
+.boton:hover {
+    -fx-background-image: url('../images/graficaInvertida.jpg');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-text-fill: #061159; /* White text */
+    -fx-text-align: center; /* Centered text */
+    -fx-text-decoration: none; /* Remove underline */
+    -fx-cursor: pointer;
+    -fx-font-family: Consolas;
+}

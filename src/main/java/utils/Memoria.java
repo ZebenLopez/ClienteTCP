@@ -7,7 +7,7 @@ import oshi.hardware.HardwareAbstractionLayer;
 import java.util.Locale;
 
 public class Memoria {
-    public static String obtenerInfo() {
+    public static double obtenerInfo() {
         SystemInfo systemInfo = new SystemInfo();
         HardwareAbstractionLayer hardware = systemInfo.getHardware();
 
@@ -16,8 +16,8 @@ public class Memoria {
         long totalMemory = memory.getTotal();
 
         double memoryUsage = (1 - (double) availableMemory / totalMemory) * 100;
-        String formattedMemoryUsage = String.format(Locale.US,"%.2f", memoryUsage);
-        System.out.println("Uso de la memoria: " + formattedMemoryUsage + " %");
-        return formattedMemoryUsage + "%";
+        String formattedMemoryUsage = String.format(Locale.US, "%.2f", memoryUsage);
+        memoryUsage = Double.parseDouble(formattedMemoryUsage);
+        return memoryUsage;
     }
 }

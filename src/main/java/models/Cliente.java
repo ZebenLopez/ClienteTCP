@@ -2,41 +2,46 @@ package models;
 
 import utils.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Cliente {
     private String sistema;
     private String usuario;
-    private String cpu;
-    private String ram;
-    private List<String> disco;
-    private String perifericos;
+    private double cpu;
+    private double ram;
+    private long espacioDisco;
+    private long espacioLibreDisco;
+    private double porcentajeOcupadoDisco;
 
-    public Cliente(String perifericos) {
+
+    public Cliente() {
         this.sistema = Sistema.obtenerInfo();
         this.usuario = Usuario.obtenerInfo();
-        this.disco = obtenerInfoDisco();
-        this.perifericos = perifericos;
+        this.espacioDisco = DiscoDuro.obtenerEspacioTotalDisco();
+        this.espacioLibreDisco = DiscoDuro.obtenerEspacioLibreDisco();
+        this.porcentajeOcupadoDisco = DiscoDuro.obtenerPorcentajeUsoDisco();
+
         actualizarDatos();
     }
-
-    private List<String> obtenerInfoDisco() {
-        List<InfoDiscoDuro> infoDiscoDuroList = DiscoDuro.obtenerInfo();
-        List<String> discoInfo = new ArrayList<>();
-        for (InfoDiscoDuro info : infoDiscoDuroList) {
-            discoInfo.add(info.toString());
-        }
-        return discoInfo;
-    }
-
     public void actualizarDatos() {
         this.cpu = CPU.obtenerInfo();
         this.ram = Memoria.obtenerInfo();
     }
-
+    public void actualizarDatos2() {
+        this.cpu = (CPU.obtenerInfo() * 100 );
+        this.ram = Memoria.obtenerInfo();
+    }
     public List<Object> getCliente() {
-        return Arrays.asList(sistema, usuario, cpu, ram, disco, perifericos);
+        return Arrays.asList(sistema, usuario, cpu, ram, espacioDisco, espacioLibreDisco, porcentajeOcupadoDisco);
+    }
+
+    public Cliente(String nombre) {
+        this.sistema = Sistema.obtenerInfo();
+        this.usuario = nombre;
+        this.espacioDisco = DiscoDuro.obtenerEspacioTotalDisco();
+        this.espacioLibreDisco = DiscoDuro.obtenerEspacioLibreDisco();
+        this.porcentajeOcupadoDisco = DiscoDuro.obtenerPorcentajeUsoDisco();
+        actualizarDatos2();
     }
 }

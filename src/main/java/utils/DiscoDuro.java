@@ -55,50 +55,85 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+//public class DiscoDuro {
+//    // Este método estático obtiene información sobre los discos duros del sistema.
+//    public static List<InfoDiscoDuro> obtenerInfo() {
+//        // Se crea una lista para almacenar la información de los discos duros.
+//        List<InfoDiscoDuro> infoDiscoDuroList = new ArrayList<>();
+//
+//        // Se crea un objeto SystemInfo para obtener información sobre el sistema.
+//        SystemInfo systemInfo = new SystemInfo();
+//        // Se obtiene la capa de abstracción de hardware del sistema.
+//        HardwareAbstractionLayer hardware = systemInfo.getHardware();
+//        // Se obtiene el sistema de archivos del sistema operativo.
+//        FileSystem fileSystem = systemInfo.getOperatingSystem().getFileSystem();
+//
+//        // Se obtiene una lista de las tiendas de archivos del sistema de archivos.
+//        List<OSFileStore> fsArray = fileSystem.getFileStores();
+//        // Se itera sobre cada tienda de archivos.
+//        for (OSFileStore fs : fsArray) {
+//            // Si la descripción de la tienda de archivos es "Fixed drive" y su espacio total es mayor o igual a 1GB...
+//            if (fs.getDescription().equals("Fixed drive") && fs.getTotalSpace()/1024/1024/1024 >= 1) {
+//                // Se obtiene el espacio total de la tienda de archivos.
+//                long totalSpace = fs.getTotalSpace();
+//                // Se obtiene el espacio utilizable de la tienda de archivos.
+//                long usableSpace = fs.getUsableSpace();
+//                // Se calcula el uso del disco como un porcentaje y se formatea a dos decimales.
+//                String diskUsage = String.format(Locale.US, "%.2f", (1 - (double) usableSpace / totalSpace) * 100);
+//
+//                // Se crea un objeto InfoDiscoDuro con la información de la tienda de archivos.
+//                InfoDiscoDuro infoDiscoDuro = new InfoDiscoDuro(
+//                        fs.getName(),
+//                        fs.getDescription(),
+//                        fs.getType(),
+//                        totalSpace/1024/1024/1024,
+//                        (totalSpace - usableSpace)/1024/1024/1024,
+//                        diskUsage
+//                );
+//
+//                // Se añade el objeto InfoDiscoDuro a la lista.
+//                infoDiscoDuroList.add(infoDiscoDuro);
+//                // Se imprime la representación de cadena de texto del objeto InfoDiscoDuro.
+//                System.out.println(infoDiscoDuro.toString());
+//            }
+//        }
+//
+//        // Se devuelve la lista de objetos InfoDiscoDuro.
+//        return infoDiscoDuroList;
+//    }
+//}
+
 public class DiscoDuro {
-    // Este método estático obtiene información sobre los discos duros del sistema.
-    public static List<InfoDiscoDuro> obtenerInfo() {
-        // Se crea una lista para almacenar la información de los discos duros.
-        List<InfoDiscoDuro> infoDiscoDuroList = new ArrayList<>();
-
-        // Se crea un objeto SystemInfo para obtener información sobre el sistema.
+    public static List<OSFileStore> obtenerDiscos() {
         SystemInfo systemInfo = new SystemInfo();
-        // Se obtiene la capa de abstracción de hardware del sistema.
         HardwareAbstractionLayer hardware = systemInfo.getHardware();
-        // Se obtiene el sistema de archivos del sistema operativo.
         FileSystem fileSystem = systemInfo.getOperatingSystem().getFileSystem();
+        return fileSystem.getFileStores();
+    }
 
-        // Se obtiene una lista de las tiendas de archivos del sistema de archivos.
-        List<OSFileStore> fsArray = fileSystem.getFileStores();
-        // Se itera sobre cada tienda de archivos.
-        for (OSFileStore fs : fsArray) {
-            // Si la descripción de la tienda de archivos es "Fixed drive" y su espacio total es mayor o igual a 1GB...
-            if (fs.getDescription().equals("Fixed drive") && fs.getTotalSpace()/1024/1024/1024 >= 1) {
-                // Se obtiene el espacio total de la tienda de archivos.
-                long totalSpace = fs.getTotalSpace();
-                // Se obtiene el espacio utilizable de la tienda de archivos.
-                long usableSpace = fs.getUsableSpace();
-                // Se calcula el uso del disco como un porcentaje y se formatea a dos decimales.
-                String diskUsage = String.format(Locale.US, "%.2f", (1 - (double) usableSpace / totalSpace) * 100);
-
-                // Se crea un objeto InfoDiscoDuro con la información de la tienda de archivos.
-                InfoDiscoDuro infoDiscoDuro = new InfoDiscoDuro(
-                        fs.getName(),
-                        fs.getDescription(),
-                        fs.getType(),
-                        totalSpace/1024/1024/1024,
-                        (totalSpace - usableSpace)/1024/1024/1024,
-                        diskUsage
-                );
-
-                // Se añade el objeto InfoDiscoDuro a la lista.
-                infoDiscoDuroList.add(infoDiscoDuro);
-                // Se imprime la representación de cadena de texto del objeto InfoDiscoDuro.
-                System.out.println(infoDiscoDuro.toString());
-            }
+    public static long obtenerEspacioTotalDisco() {
+        long totalSpace = 0;
+        List<OSFileStore> discos = obtenerDiscos();
+        for (OSFileStore disco : discos) {
+            totalSpace += disco.getTotalSpace();
         }
+        return totalSpace/1024/1024/1024;
+    }
 
-        // Se devuelve la lista de objetos InfoDiscoDuro.
-        return infoDiscoDuroList;
+    public static long obtenerEspacioLibreDisco() {
+        long usableSpace = 0;
+        List<OSFileStore> discos = obtenerDiscos();
+        for (OSFileStore disco : discos) {
+                usableSpace += disco.getUsableSpace();
+        }
+        return usableSpace/1024/1024/1024;
+    }
+
+    public static double obtenerPorcentajeUsoDisco() {
+        long totalSpace = obtenerEspacioTotalDisco();
+        long usableSpace = obtenerEspacioLibreDisco();
+        double diskUsage = (1 - (double) usableSpace / totalSpace) * 100;
+        diskUsage = Math.round(diskUsage * 100.00) / 100.00;
+        return diskUsage;
     }
 }
