@@ -6,6 +6,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+/**
+ *
+ * @author Zebenzuí López Conde
+ * @version 1.0
+ * 2ºA DAM
+ */
 
 public class ConexionView extends Application {
 

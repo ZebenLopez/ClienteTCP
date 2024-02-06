@@ -2,6 +2,12 @@ package utils;
 
 import oshi.SystemInfo;
 import oshi.software.os.OperatingSystem;
+/**
+ *
+ * @author Zebenzuí López Conde
+ * @version 1.0
+ * 2ºA DAM
+ */
 
 public class Sistema {
     public static String obtenerInfo() {
@@ -18,9 +24,5 @@ public class Sistema {
         String soloVersion = versionCompleta.split(" ")[0];
         Sistema = os.getFamily() + " " + soloVersion;
         return Sistema;
-
-//        // Obtener información del usuario
-//        String username = System.getProperty("user.name");
-//        System.out.println("Usuario: " + username);
     }
 }

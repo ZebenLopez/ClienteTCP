@@ -8,6 +8,13 @@ import services.Conexion;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ *
+ * @author Zebenzuí López Conde
+ * @version 1.0
+ * 2ºA DAM
+ */
+
 
 public class HelloApplication {
     private static final Stage primaryStage = new Stage();
@@ -30,38 +37,6 @@ public class HelloApplication {
 
         init();
     }
-
-//    public void init() {
-//        new Thread(() -> {
-//            try {
-//                Cliente cliente = new Cliente("USBX");
-//                Conexion conexion = new Conexion(getPrimaryStage());
-//                while (true) {
-//                    // Actualizar los datos del cliente
-//                    cliente.actualizarDatos();
-//
-//                    // Obtener los datos del cliente como una lista de cadenas
-//                    List<Object> datosCliente = cliente.getCliente();
-//
-//                    // Intentar conectar y enviar los datos al servidor
-//                    conexion.conectar(datosCliente);
-//
-//                    // Iniciar un nuevo hilo para recibir mensajes cada vez que se abre una conexión
-//                    new Thread(conexion::recibirMensaje).start();
-//
-//                    System.out.println("Datos del cliente: " + cliente.getCliente());
-//                    Thread.sleep(1000);
-//                }
-//            } catch (ConnectException e) {
-//                // Imprimir el error si no se puede conectar al servidor
-//                System.out.println("##Aqui");
-//                e.printStackTrace();
-//            } catch (Exception e) {
-//                System.out.println("##Aqui2");
-//                e.printStackTrace();
-//            }
-//        }).start();
-//    }
     public void init() {
     new Thread(() -> {
         try {

@@ -1,8 +1,12 @@
 package utils;
 
 import oshi.SystemInfo;
-import oshi.software.os.OperatingSystem;
-
+/**
+ *
+ * @author Zebenzuí López Conde
+ * @version 1.0
+ * 2ºA DAM
+ */
 public class Usuario {
 
     public static String obtenerInfo() {

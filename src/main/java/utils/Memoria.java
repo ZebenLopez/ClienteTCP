@@ -5,6 +5,12 @@ import oshi.hardware.GlobalMemory;
 import oshi.hardware.HardwareAbstractionLayer;
 
 import java.util.Locale;
+/**
+ *
+ * @author Zebenzuí López Conde
+ * @version 1.0
+ * 2ºA DAM
+ */
 
 public class Memoria {
     public static double obtenerInfo() {

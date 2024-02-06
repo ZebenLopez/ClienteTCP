@@ -6,6 +6,12 @@ import javafx.scene.control.TextField;
 import org.example.clientetcpfx.HelloApplication;
 
 import java.io.IOException;
+/**
+ *
+ * @author Zebenzuí López Conde
+ * @version 1.0
+ * 2ºA DAM
+ */
 
 public class ConexionController {
     @FXML

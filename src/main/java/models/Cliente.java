@@ -4,6 +4,12 @@ import utils.*;
 
 import java.util.Arrays;
 import java.util.List;
+/**
+ *
+ * @author Zebenzuí López Conde
+ * @version 1.0
+ * 2ºA DAM
+ */
 
 public class Cliente {
     private String sistema;

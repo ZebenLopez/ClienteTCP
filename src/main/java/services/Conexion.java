@@ -13,6 +13,12 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.List;
+/**
+ *
+ * @author Zebenzuí López Conde
+ * @version 1.0
+ * 2ºA DAM
+ */
 
 public class Conexion {
 
@@ -20,6 +26,8 @@ public class Conexion {
     private static int puerto = ConexionController.getPuerto();
     private Socket clientSocket;
     private DataOutputStream outToServer;
+    private Alert alert;
+
 
     public Conexion(Stage primaryStage) throws IOException, InterruptedException {
         conectarAlServidor();
@@ -60,19 +68,9 @@ public class Conexion {
                 Platform.runLater(() -> {
                     System.out.println("Antes de verificar Platform.isImplicitExit()");
                     if (!Platform.isImplicitExit()) {
-                        System.out.println("Dentro de Platform.isImplicitExit()");
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Mensaje del servidor");
-                        alert.setHeaderText(null);
-                        alert.setContentText(finalMensajeDelServidor);
-                        alert.showAndWait();
-                        System.out.println("Después de mostrar la alerta");
+                        mostrarAlerta("warning", "Mensaje del servidor", finalMensajeDelServidor);
                     } else {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Mensaje del servidor");
-                        alert.setHeaderText(null);
-                        alert.setContentText(finalMensajeDelServidor);
-                        alert.showAndWait();
+                        mostrarAlerta("warning", "Mensaje del servidor", finalMensajeDelServidor);
                     }
                 });
             }
@@ -108,26 +106,45 @@ public class Conexion {
                 if (clientSocket.isConnected()) {
                     System.out.println("Conectado al servidor");
                     Platform.runLater(() -> {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Conexión");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Conectado al servidor.");
-                        alert.showAndWait();
+                        mostrarAlerta("information", "Conexión", "Conectado al servidor.");
                     });
                     break;
                 }
             } catch (IOException e) {
                 System.out.println("Error al conectar al servidor.\nBuscando...");
                 Platform.runLater(() -> {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Error al conectar al servidor\nBuscando...");
-                    alert.showAndWait();
+                    mostrarAlerta("Error", "Error", "Error al conectar al servidor\nBuscando...");
                 });
                 Thread.sleep(20000); // Esperar 5 segundos antes de intentar de nuevo
             }
         }
     }
 
+    private void mostrarAlerta(String info, String titulo, String mensaje) {
+        Alert.AlertType alertType;
+        switch (info.toLowerCase()) {
+            case "information":
+                alertType = Alert.AlertType.INFORMATION;
+                break;
+            case "warning":
+                alertType = Alert.AlertType.WARNING;
+                break;
+            case "error":
+                alertType = Alert.AlertType.ERROR;
+                break;
+            case "confirmation":
+                alertType = Alert.AlertType.CONFIRMATION;
+                break;
+            default:
+                throw new IllegalArgumentException("Tipo de alerta no reconocido: " + info);
+        }
+
+        if (alert == null || !alert.isShowing()) {
+            alert = new Alert(alertType);
+            alert.setTitle(titulo);
+            alert.setHeaderText(null);
+            alert.setContentText(mensaje);
+            Platform.runLater(alert::showAndWait);
+        }
+    }
 }

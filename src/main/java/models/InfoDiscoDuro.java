@@ -1,4 +1,10 @@
 package models;
+/**
+ *
+ * @author Zebenzuí López Conde
+ * @version 1.0
+ * 2ºA DAM
+ */
 
 public class InfoDiscoDuro {
     private String nombre;
