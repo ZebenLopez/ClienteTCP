@@ -6,11 +6,7 @@ import javafx.stage.Stage;
 import models.Cliente;
 import services.Conexion;
 import java.io.IOException;
-import java.net.ConnectException;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 
 public class HelloApplication {
@@ -92,7 +88,7 @@ public class HelloApplication {
                 List<Object> datosCliente = cliente.getCliente();
 
                 // Intentar conectar y enviar los datos al servidor
-                conexion.conectar(datosCliente);
+                conexion.enviarJson(datosCliente);
 
                 // Iniciar un nuevo hilo para recibir mensajes cada vez que se abre una conexión
                 new Thread(conexion::recibirMensaje).start();

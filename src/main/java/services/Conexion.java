@@ -20,80 +20,31 @@ public class Conexion {
     private static int puerto = ConexionController.getPuerto();
     private Socket clientSocket;
     private DataOutputStream outToServer;
-    private boolean isRunning = false;
 
-
-    public Conexion(Stage primaryStage) throws IOException {
+    public Conexion(Stage primaryStage) throws IOException, InterruptedException {
+        conectarAlServidor();
+    }
+    public void enviarJson(List<Object> datosCliente) throws IOException, InterruptedException {
         try {
-            clientSocket = new Socket(ip, puerto);
-//        clientSocket = new Socket("localhost", 6789);
-            outToServer = new DataOutputStream(clientSocket.getOutputStream());
-            System.out.println("#########Conectao");
-            if (clientSocket.isConnected()) {
-                System.out.println("Conectado al servidor");
-                Platform.runLater(() -> {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Conexión");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Conectado al servidor.");
-                    alert.showAndWait();
-                });
+            if (outToServer == null) {
+                conectarAlServidor();
             }
-        } catch (IOException e) {
-            System.out.println("Error al conectar al servidor.\nBuscando...");
-            Platform.runLater(() -> {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Error al conectar al servidor\nBuscando...");
-                alert.showAndWait();
-                primaryStage.close();
-            });
-        }
-    }
+            // Convertir la lista a JSON
+            Gson gson = new Gson();
+            String json = gson.toJson(datosCliente);
 
-//    public void conectar(List<Object> datosCliente) {
-//        try {
-//            // Convertir la lista a JSON
-//            Gson gson = new Gson();
-//            String json = gson.toJson(datosCliente);
-//
-//            // Enviar el JSON al servidor
-//            outToServer.writeBytes(json + "\n");
-//            outToServer.flush();
-//        } catch (SocketException e) {
-//            System.out.println("La conexión fue cerrada por el servidor. Intentando reconectar...");
-//        } catch (IOException e) {
-//            System.out.println("Error al enviar los datos al servidor");
-//        }
-//    }
-    public void conectar(List<Object> datosCliente) {
-    try {
-        if (outToServer == null) {
-            // Intentar reconectar con el servidor
+            // Enviar el JSON al servidor
+            outToServer.writeBytes(json + "\n");
+            outToServer.flush();
+        } catch (SocketException e) {
+            System.out.println("La conexión fue cerrada por el servidor. Intentando reconectar...");
             conectarAlServidor();
-            try {
-                clientSocket = new Socket(ip, puerto);
-                outToServer = new DataOutputStream(clientSocket.getOutputStream());
-            } catch (IOException e) {
-                System.out.println("Error al reconectar al servidor");
-                return;
-            }
+        } catch (IOException e) {
+            System.out.println("Error al enviar los datos al servidor");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
-        // Convertir la lista a JSON
-        Gson gson = new Gson();
-        String json = gson.toJson(datosCliente);
-
-        // Enviar el JSON al servidor
-        outToServer.writeBytes(json + "\n");
-        outToServer.flush();
-        isRunning = true;
-    } catch (SocketException e) {
-        System.out.println("La conexión fue cerrada por el servidor. Intentando reconectar...");
-    } catch (IOException e) {
-        System.out.println("Error al enviar los datos al servidor");
     }
-}
 
     public void recibirMensaje() {
         try {
@@ -117,31 +68,66 @@ public class Conexion {
                         alert.showAndWait();
                         System.out.println("Después de mostrar la alerta");
                     } else {
-                        System.out.println("Se salta el platform.runLater()");
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Mensaje del servidor");
                         alert.setHeaderText(null);
                         alert.setContentText(finalMensajeDelServidor);
-                        alert.show();
+                        alert.showAndWait();
                     }
                 });
             }
+        } catch (SocketException e) {
+            System.out.println("La conexión fue cerrada por el servidor. Intentando reconectar...");
+            while (clientSocket == null || clientSocket.isClosed()) {
+                try {
+                    conectarAlServidor();
+                } catch (IOException ex) {
+                    System.out.println("Error al reconectar al servidor. Intentando de nuevo en 5 segundos...");
+                    try {
+                        Thread.sleep(5000); // Esperar 5 segundos antes de intentar de nuevo
+                    } catch (InterruptedException ie) {
+                        System.out.println("Error al esperar para reconectar");
+                    }
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         } catch (IOException e) {
             System.out.println("Error al recibir los datos del servidor");
-            // Aquí puedes intentar reconectar o manejar el error de alguna otra manera
-            try {
-                Thread.sleep(2000); // Esperar 2 segundos antes de intentar reconectar
-            } catch (InterruptedException ex) {
-//                throw new RuntimeException(ex);
-                System.out.println("Error al recibir los datos del servidor");
-            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private void conectarAlServidor() throws IOException {
-        clientSocket = new Socket(ip, puerto);
-        outToServer = new DataOutputStream(clientSocket.getOutputStream());
-        System.out.println("Conectado al servidor");
+    private void conectarAlServidor() throws IOException, InterruptedException {
+        while (true) {
+            try {
+                clientSocket = new Socket(ip, puerto);
+                outToServer = new DataOutputStream(clientSocket.getOutputStream());
+                System.out.println("#########Conectao");
+                if (clientSocket.isConnected()) {
+                    System.out.println("Conectado al servidor");
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Conexión");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Conectado al servidor.");
+                        alert.showAndWait();
+                    });
+                    break;
+                }
+            } catch (IOException e) {
+                System.out.println("Error al conectar al servidor.\nBuscando...");
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Error al conectar al servidor\nBuscando...");
+                    alert.showAndWait();
+                });
+                Thread.sleep(20000); // Esperar 5 segundos antes de intentar de nuevo
+            }
+        }
     }
 
 }
