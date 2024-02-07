@@ -4,7 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import org.example.clientetcpfx.HelloApplication;
+import services.Ayuda;
 
 import java.io.IOException;
 
@@ -96,5 +98,9 @@ public class ConexionController {
 // Método para obtener el puerto almacenado
     public static int getPuerto() {
         return puerto;
+    }
+
+    public void ayuda(ActionEvent actionEvent) {
+        Ayuda.abrirHelp();
     }
 }

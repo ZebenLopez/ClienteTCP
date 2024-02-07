@@ -3,6 +3,7 @@ module org.example.clientetcpfx {
     requires javafx.fxml;
     requires com.google.gson;
     requires com.github.oshi;
+    requires java.desktop;
 
 
     opens org.example.clientetcpfx to javafx.fxml;
