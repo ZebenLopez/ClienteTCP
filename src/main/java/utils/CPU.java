@@ -17,6 +17,17 @@ public class CPU {
 
     /**
      * Método para obtener el uso de la CPU.
+     * <p>
+     *     Este método utiliza la librería OSHI para obtener el uso de la CPU del sistema.
+     *     Se obtiene el uso de la CPU en porcentaje.
+     *     Se espera un segundo para que se puedan calcular las diferencias en los ticks.
+     *     Se formatea la salida para que solo muestre dos decimales.
+     *     Se convierte el uso de la CPU formateado a double y se retorna.
+     *     Si ocurre un error, se imprime el stack trace y se retorna 0.
+     *     Si todo va bien, se retorna el uso de la CPU como un porcentaje.
+     *     Si el uso de la CPU es 0, se retorna 0.
+     *     Si el uso de la CPU es negativo, se retorna 0.
+     *     Si el uso de la CPU es mayor que 100, se retorna 100.
      *
      * @return el uso de la CPU como un porcentaje.
      */

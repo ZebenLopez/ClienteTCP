@@ -9,6 +9,7 @@ import oshi.software.os.OSFileStore;
 import java.util.List;
 
 /**
+ * The type Disco duro.
  *
  * @author Zebenzuí López Conde
  * @version 1.0  2ºA DAM
@@ -16,10 +17,10 @@ import java.util.List;
 public class DiscoDuro {
 
     /**
+     *Metodo que devuelve un objeto de tipo InfoDiscoDuro con la información del disco duro.
      *
      * @return Una lista de OSFileStore que representa todos los discos en el sistema.
      */
-    // Este método devuelve una lista de todos los discos en el sistema.
     public static List<OSFileStore> obtenerDiscos() {
         SystemInfo systemInfo = new SystemInfo(); // Crea una nueva instancia de SystemInfo para acceder a la información del sistema.
         HardwareAbstractionLayer hardware = systemInfo.getHardware(); // Obtiene la capa de abstracción de hardware del sistema.
@@ -28,10 +29,10 @@ public class DiscoDuro {
     }
 
     /**
+     * Metodo que devuelve el espacio total de todos los discos en el sistema en gigabytes.
      *
      * @return El espacio total de todos los discos en el sistema en gigabytes.
      */
-    // Este método devuelve el espacio total de todos los discos en el sistema en gigabytes.
     public static long obtenerEspacioTotalDisco() {
         long totalSpace = 0; // Inicializa la variable totalSpace en 0.
         List<OSFileStore> discos = obtenerDiscos(); // Obtiene una lista de todos los discos en el sistema.
@@ -42,10 +43,10 @@ public class DiscoDuro {
     }
 
     /**
+     * Metodo que devuelve el espacio libre de todos los discos en el sistema en gigabytes.
      *
      * @return El espacio libre de todos los discos en el sistema en gigabytes.
      */
-    // Este método devuelve el espacio libre de todos los discos en el sistema en gigabytes.
     public static long obtenerEspacioLibreDisco() {
         long usableSpace = 0; // Inicializa la variable usableSpace en 0.
         List<OSFileStore> discos = obtenerDiscos(); // Obtiene una lista de todos los discos en el sistema.
@@ -56,10 +57,10 @@ public class DiscoDuro {
     }
 
     /**
+     * Metodo que devuelve el porcentaje de uso de todos los discos en el sistema.
      *
      * @return El porcentaje de uso de todos los discos en el sistema.
      */
-    // Este método devuelve el porcentaje de uso de todos los discos en el sistema.
     public static double obtenerPorcentajeUsoDisco() {
         long totalSpace = obtenerEspacioTotalDisco(); // Obtiene el espacio total de todos los discos en el sistema.
         long usableSpace = obtenerEspacioLibreDisco(); // Obtiene el espacio utilizable de todos los discos en el sistema.

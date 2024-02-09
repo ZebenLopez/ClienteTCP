@@ -21,18 +21,23 @@ import java.util.List;
  * @version 1.0  2ºA DAM
  */
 public class Conexion {
-
-    // Variables estáticas para la dirección IP y el puerto del servidor
+    /**
+     * Variables estáticas para la dirección IP y el puerto del servidor
+     */
     private static String ip = ConexionController.getIp();
     private static int puerto = ConexionController.getPuerto();
 
-    // Variables para el socket del cliente, el flujo de salida al servidor y la alerta
+    /**
+     * Sets ip.
+     * Variables para el socket del cliente, el flujo de salida al servidor y la alerta
+     */
     private Socket clientSocket;
     private DataOutputStream outToServer;
     private Alert alert;
 
     /**
      * Instantiates a new Conexion.
+     * Constructor de la clase Conexion
      *
      * @param primaryStage the primary stage
      * @throws IOException          the io exception
@@ -46,6 +51,13 @@ public class Conexion {
 
     /**
      * Enviar json.
+     * Método para enviar datos al servidor en formato JSON
+     * <p>
+     *     Convierte la lista de datos del cliente a formato JSON
+     *     Envia el JSON al servidor
+     *     Si la conexión fue cerrada por el servidor, intenta reconectar
+     *     Maneja cualquier otro error de entrada/salida
+     *     Maneja cualquier interrupción del hilo
      *
      * @param datosCliente the datos cliente
      * @throws IOException          the io exception
@@ -81,6 +93,14 @@ public class Conexion {
 
     /**
      * Recibir mensaje.
+     * Método para recibir mensajes del servidor
+     * <p>
+     *     Si el socket del cliente no está inicializado o está cerrado, intenta conectar al servidor
+     *     Crea un lector para leer los mensajes del servidor
+     *     Lee y muestra los mensajes del servidor hasta que no haya más
+     *     Si la conexión fue cerrada por el servidor, intenta reconectar
+     *     Maneja cualquier otro error de entrada/salida
+     *     Maneja cualquier interrupción del hilo
      */
 // Método para recibir mensajes del servidor
     public void recibirMensaje() {
@@ -128,6 +148,17 @@ public class Conexion {
         }
     }
 
+    /**
+     * Conectar al servidor.
+     * Método para conectar al servidor
+     * <p>
+     *     Mientras que la conexión no sea exitosa, intenta conectar al servidor
+     *     Si la conexión es exitosa, muestra un mensaje y sale del bucle
+     *     Si hay un error al conectar al servidor, muestra un mensaje y espera 5 segundos antes de intentar de nuevo
+     *
+     * @throws IOException          the io exception
+     * @throws InterruptedException the interrupted exception
+     */
     // Método para conectar al servidor
     private void conectarAlServidor() throws IOException, InterruptedException {
         while (true) {
@@ -155,6 +186,14 @@ public class Conexion {
         }
     }
 
+    /**
+     * Mostrar alerta.
+     * Método para mostrar alertas al usuario
+     *
+     * @param info    the info
+     * @param titulo  the titulo
+     * @param mensaje the mensaje
+     */
     // Método para mostrar alertas al usuario
     private void mostrarAlerta(String info, String titulo, String mensaje) {
         Alert.AlertType alertType;

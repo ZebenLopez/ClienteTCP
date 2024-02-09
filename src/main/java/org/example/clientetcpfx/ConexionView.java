@@ -9,26 +9,40 @@ import java.io.IOException;
 
 /**
  * The type Conexion view.
+ * <p>
+ *     Clase que representa la vista de conexión
  *
  * @author Zebenzuí López Conde
  * @version 1.0  2ºA DAM
  */
 public class ConexionView extends Application {
 
-    // Definición de la etapa de la aplicación
     private static Stage stage;
 
     /**
      * Gets stage.
-     *
+     * <p>
+     *     Metodo para obtener la etapa
      * @return the stage
      */
-// Método para obtener la etapa de la aplicación
     public static Stage getStage() {
         return stage;
     }
-
-    // Método que se ejecuta al iniciar la aplicación
+    /**
+     * Start.
+     * <p>
+     *     Método que se ejecuta al iniciar la aplicación
+     *     @param stage the stage
+     *                  Etapa
+     *                  @throws IOException the io exception
+     *                  Excepción de entrada/salida
+     *                  @throws IOException the io exception
+     *                  <p>
+     *                      Captura la vista de conexión desde el archivo FXML
+     *                      Configura el título y la escena de la etapa
+     *                      Cierra la aplicación cuando se cierra la etapa
+     *                      Muestra la etapa
+     */
     @Override
     public void start(Stage stage) throws IOException {
         ConexionView.stage = stage;
@@ -52,10 +66,11 @@ public class ConexionView extends Application {
 
     /**
      * Show conexion.
+     * <p>
+     *     Método para mostrar la vista de conexión
      *
      * @throws IOException the io exception
      */
-// Método para mostrar la vista de conexión
     public static void showConexion() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Conexion-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -66,10 +81,11 @@ public class ConexionView extends Application {
 
     /**
      * The entry point of application.
+     * <p>
+     *     Método principal de la aplicación
      *
      * @param args the input arguments
      */
-// Método principal que lanza la aplicación
     public static void main(String[] args) {
         launch();
     }

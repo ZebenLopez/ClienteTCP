@@ -7,6 +7,7 @@ import oshi.hardware.HardwareAbstractionLayer;
 import java.util.Locale;
 
 /**
+ * The type Memoria.
  *
  * @author Zebenzuí López Conde
  * @version 1.0
@@ -15,10 +16,17 @@ import java.util.Locale;
 public class Memoria {
 
     /**
+     * Este método devuelve el porcentaje de uso de la memoria del sistema.
+     * <p>
+     *     Para obtener el porcentaje de uso de la memoria del sistema, se utiliza la librería OSHI.
+     *     Se crea una nueva instancia de SystemInfo para acceder a la información del sistema.
+     *     A continuación, se obtiene la capa de abstracción de hardware del sistema.
+     *     Se obtiene la memoria global del sistema y se almacena la memoria disponible y la memoria total.
+     *     Se calcula el porcentaje de uso de la memoria y se formatea a dos decimales.
+     *     Finalmente, se devuelve el porcentaje de uso de la memoria.
      *
      * @return El porcentaje de uso de la memoria del sistema.
      */
-    //    Este método devuelve el espacio total de todos los discos en el sistema en gigabytes.
     public static double obtenerInfo() {
         SystemInfo systemInfo = new SystemInfo(); // Crea una nueva instancia de SystemInfo para acceder a la información del sistema.
         HardwareAbstractionLayer hardware = systemInfo.getHardware(); // Obtiene la capa de abstracción de hardware del sistema.

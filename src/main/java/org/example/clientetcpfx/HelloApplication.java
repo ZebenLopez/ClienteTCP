@@ -13,18 +13,31 @@ import java.util.List;
  * The type Hello application.
  *
  * @author Zebenzuí López Conde
- * @version 1.0  2ºA DAM
+ * @version 1.0 2ºA DAM
  */
 public class HelloApplication {
-    // Definición del escenario principal
+    /**
+     * The constant primaryStage.
+     * <p>
+     *     Escenario principal
+     */
     private static final Stage primaryStage = new Stage();
 
     /**
      * Show.
+     * <p>
+     * Método para mostrar la vista principal
+     * <p>
+     *     Se encarga de ocultar la vista de conexión y de mostrar la vista principal
+     *     <p>
+     *         Crea un nuevo escenario, carga la vista principal desde el archivo FXML,
+     *         configura el título, la escena y la redimensionabilidad del nuevo escenario,
+     *         cierra la aplicación cuando se cierra el nuevo escenario y muestra el nuevo escenario.
+     *         <p>
+     *             Inicia la aplicación.
      *
      * @throws IOException the io exception
      */
-// Método para mostrar la aplicación
     public void show() throws IOException {
         Stage conexionStage = ConexionView.getStage();
         conexionStage.hide();
@@ -55,8 +68,21 @@ public class HelloApplication {
 
     /**
      * Init.
+     * <p>
+     *     Método para inicializar la aplicación
+     *     <p>
+     *         Se encarga de crear un nuevo hilo para el cliente y la conexión
+     *         con el servidor, y de enviar los datos del cliente al servidor
+     *         cada segundo.
+     *         <p>
+     *             En caso de que la conexión falle, se intentará de nuevo cada 5 segundos.
+     *             <p>
+     *                 En caso de que la conexión sea exitosa, se inicia un nuevo hilo para
+     *                 recibir mensajes cada vez que se abre una conexión.
+     *                 <p>
+     *                     En caso de que se produzca un error, se imprime el error en la consola.
+     *
      */
-// Método para iniciar la aplicación
     public void init() {
         new Thread(() -> {
             try {
@@ -100,6 +126,8 @@ public class HelloApplication {
 
     /**
      * Gets primary stage.
+     * <p>
+     *     Método para obtener el escenario principal
      *
      * @return the primary stage
      */
