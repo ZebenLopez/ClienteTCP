@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import org.example.clientetcpfx.HelloApplication;
 import services.Ayuda;
@@ -35,6 +36,14 @@ public class ConexionController {
 
     /**
      * Boton aceptar.
+     * <p>
+     *     Método que se ejecuta cuando se pulsa el botón de aceptar <br>
+     *     Comprueba si los campos de texto de la IP y el puerto están vacíos <br>
+     *     Si están vacíos, muestra una alerta de error <br>
+     *     Intenta convertir el texto del puerto a un número entero <br>
+     *     Comprueba si el puerto está en el rango permitido <br>
+     *     Si no está en el rango permitido, muestra una alerta de error <br>
+     *     Si todo está correcto, lanza la aplicación <br>
      *
      * @param actionEvent the action event
      * @throws IOException the io exception
@@ -101,6 +110,10 @@ public class ConexionController {
     }
 
     public void ayuda(ActionEvent actionEvent) {
+        Ayuda.abrirHelp();
+    }
+
+    public void abrirAyuda(KeyEvent keyEvent) {
         Ayuda.abrirHelp();
     }
 }

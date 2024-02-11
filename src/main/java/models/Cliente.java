@@ -42,6 +42,7 @@ public class Cliente {
 
     /**
      * Actualizar datos.
+     * <p>
      * Método para actualizar los datos de CPU y RAM
      */
     public void actualizarDatos() {
@@ -51,6 +52,7 @@ public class Cliente {
 
     /**
      * Actualizar datos 2.
+     * <p>
      * Método para actualizar los datos de CPU y RAM (con la CPU multiplicada por 100)
      */
     public void actualizarDatos2() {

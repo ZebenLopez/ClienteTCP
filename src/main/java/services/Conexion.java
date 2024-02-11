@@ -37,6 +37,7 @@ public class Conexion {
 
     /**
      * Instantiates a new Conexion.
+     * <p>
      * Constructor de la clase Conexion
      *
      * @param primaryStage the primary stage
@@ -53,10 +54,10 @@ public class Conexion {
      * Enviar json.
      * Método para enviar datos al servidor en formato JSON
      * <p>
-     *     Convierte la lista de datos del cliente a formato JSON
-     *     Envia el JSON al servidor
-     *     Si la conexión fue cerrada por el servidor, intenta reconectar
-     *     Maneja cualquier otro error de entrada/salida
+     *     Convierte la lista de datos del cliente a formato JSON </br>
+     *     Envia el JSON al servidor <br>
+     *     Si la conexión fue cerrada por el servidor, intenta reconectar <br>
+     *     Maneja cualquier otro error de entrada/salida <br>
      *     Maneja cualquier interrupción del hilo
      *
      * @param datosCliente the datos cliente
@@ -95,11 +96,11 @@ public class Conexion {
      * Recibir mensaje.
      * Método para recibir mensajes del servidor
      * <p>
-     *     Si el socket del cliente no está inicializado o está cerrado, intenta conectar al servidor
-     *     Crea un lector para leer los mensajes del servidor
-     *     Lee y muestra los mensajes del servidor hasta que no haya más
-     *     Si la conexión fue cerrada por el servidor, intenta reconectar
-     *     Maneja cualquier otro error de entrada/salida
+     *     Si el socket del cliente no está inicializado o está cerrado, intenta conectar al servidor <br>
+     *     Crea un lector para leer los mensajes del servidor <br>
+     *     Lee y muestra los mensajes del servidor hasta que no haya más <br>
+     *     Si la conexión fue cerrada por el servidor, intenta reconectar <br>
+     *     Maneja cualquier otro error de entrada/salida <br>
      *     Maneja cualquier interrupción del hilo
      */
 // Método para recibir mensajes del servidor
@@ -152,8 +153,8 @@ public class Conexion {
      * Conectar al servidor.
      * Método para conectar al servidor
      * <p>
-     *     Mientras que la conexión no sea exitosa, intenta conectar al servidor
-     *     Si la conexión es exitosa, muestra un mensaje y sale del bucle
+     *     Mientras que la conexión no sea exitosa, intenta conectar al servidor <br>
+     *     Si la conexión es exitosa, muestra un mensaje y sale del bucle <br>
      *     Si hay un error al conectar al servidor, muestra un mensaje y espera 5 segundos antes de intentar de nuevo
      *
      * @throws IOException          the io exception
@@ -188,6 +189,7 @@ public class Conexion {
 
     /**
      * Mostrar alerta.
+     * <p>
      * Método para mostrar alertas al usuario
      *
      * @param info    the info

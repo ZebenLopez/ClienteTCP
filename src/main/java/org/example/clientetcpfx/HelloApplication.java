@@ -73,13 +73,10 @@ public class HelloApplication {
      *     <p>
      *         Se encarga de crear un nuevo hilo para el cliente y la conexión
      *         con el servidor, y de enviar los datos del cliente al servidor
-     *         cada segundo.
-     *         <p>
-     *             En caso de que la conexión falle, se intentará de nuevo cada 5 segundos.
-     *             <p>
+     *         cada segundo. <br>
+     *             En caso de que la conexión falle, se intentará de nuevo cada 5 segundos. <br>
      *                 En caso de que la conexión sea exitosa, se inicia un nuevo hilo para
-     *                 recibir mensajes cada vez que se abre una conexión.
-     *                 <p>
+     *                 recibir mensajes cada vez que se abre una conexión. <br>
      *                     En caso de que se produzca un error, se imprime el error en la consola.
      *
      */

@@ -16,6 +16,7 @@ public class InfoDiscoDuro {
 
     /**
      * Instantiates a new Info disco duro.
+     * <p>
      * Constructor que inicializa las propiedades de la información del disco duro
      *
      *

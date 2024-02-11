@@ -15,12 +15,12 @@ public class Sistema {
     /**
      * Método que devuelve la familia y la versión del sistema operativo.
      * <p>
-     *     Utiliza la librería OSHI para obtener la información del sistema operativo.
-     *     Crea una nueva instancia de SystemInfo para acceder a la información del sistema.
-     *     Obtiene el sistema operativo y la versión del sistema operativo.
-     *     Combina la familia del sistema operativo y la versión en una cadena.
-     *     Devuelve la cadena que representa la familia y la versión del sistema operativo.
-     *     Si no se puede obtener la información del sistema operativo, devuelve un mensaje de error.
+     *     Utiliza la librería OSHI para obtener la información del sistema operativo. <br>
+     *     Crea una nueva instancia de SystemInfo para acceder a la información del sistema. <br>
+     *     Obtiene el sistema operativo y la versión del sistema operativo. <br>
+     *     Combina la familia del sistema operativo y la versión en una cadena. <br>
+     *     Devuelve la cadena que representa la familia y la versión del sistema operativo. <br>
+     *     Si no se puede obtener la información del sistema operativo, devuelve un mensaje de error. <br>
      *     Si se produce una excepción, devuelve un mensaje de error.
      *
      * @return Una cadena que representa la familia y la versión del sistema operativo.

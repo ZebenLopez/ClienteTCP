@@ -18,11 +18,11 @@ public class Memoria {
     /**
      * Este método devuelve el porcentaje de uso de la memoria del sistema.
      * <p>
-     *     Para obtener el porcentaje de uso de la memoria del sistema, se utiliza la librería OSHI.
-     *     Se crea una nueva instancia de SystemInfo para acceder a la información del sistema.
-     *     A continuación, se obtiene la capa de abstracción de hardware del sistema.
-     *     Se obtiene la memoria global del sistema y se almacena la memoria disponible y la memoria total.
-     *     Se calcula el porcentaje de uso de la memoria y se formatea a dos decimales.
+     *     Para obtener el porcentaje de uso de la memoria del sistema, se utiliza la librería OSHI. <br>
+     *     Se crea una nueva instancia de SystemInfo para acceder a la información del sistema. <br>
+     *     A continuación, se obtiene la capa de abstracción de hardware del sistema. <br>
+     *     Se obtiene la memoria global del sistema y se almacena la memoria disponible y la memoria total. <br>
+     *     Se calcula el porcentaje de uso de la memoria y se formatea a dos decimales. <br>
      *     Finalmente, se devuelve el porcentaje de uso de la memoria.
      *
      * @return El porcentaje de uso de la memoria del sistema.

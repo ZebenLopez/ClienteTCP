@@ -29,6 +29,8 @@ public class HelloController {
 
     /**
      * Sets conexion.
+     * <p>
+     *     Método para establecer la conexión
      *
      * @param conexion the conexion
      */
@@ -39,6 +41,8 @@ public class HelloController {
 
     /**
      * Salir.
+     * <p>
+     *     Método que se ejecuta cuando se pulsa el botón de conectar
      *
      * @param actionEvent the action event
      */

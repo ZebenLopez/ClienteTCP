@@ -38,9 +38,9 @@ public class ConexionView extends Application {
      *                  Excepción de entrada/salida
      *                  @throws IOException the io exception
      *                  <p>
-     *                      Captura la vista de conexión desde el archivo FXML
-     *                      Configura el título y la escena de la etapa
-     *                      Cierra la aplicación cuando se cierra la etapa
+     *                      Captura la vista de conexión desde el archivo FXML <br>
+     *                      Configura el título y la escena de la etapa <br>
+     *                      Cierra la aplicación cuando se cierra la etapa <br>
      *                      Muestra la etapa
      */
     @Override
