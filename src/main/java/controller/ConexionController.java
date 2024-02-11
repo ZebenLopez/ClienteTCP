@@ -114,6 +114,8 @@ public class ConexionController {
     }
 
     public void abrirAyuda(KeyEvent keyEvent) {
-        Ayuda.abrirHelp();
+        if (keyEvent.getCode().toString().equals("F1")){
+            Ayuda.abrirHelp();
+        }
     }
 }
